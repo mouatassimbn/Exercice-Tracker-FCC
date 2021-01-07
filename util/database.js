@@ -5,8 +5,14 @@ const mongoClient = mongoDb.MongoClient;
 let _db;
 
 const mongoConnect = (callback) => {
+  let connectionString  = process.env.CONNECTIONSTRING || null;
+
+  if(!connectionString) {
+    throw "[ERROR] : Database connection string is empty...";
+  }
+  
   mongoClient
-    .connect(process.env.CONNECTIONSTRING)
+    .connect()
     .then((client) => {
         _db = client.db();
         callback();
@@ -22,7 +28,7 @@ const getDb = () => {
         return _db;
     }
 
-    throw "No Database found!";
+    throw "[ERROR] : No Database found!";
 }
 
 exports.mongoConnect = mongoConnect;
