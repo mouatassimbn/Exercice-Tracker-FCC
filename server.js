@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
@@ -6,6 +7,7 @@ require("dotenv").config();
 const mongoConnect = require("./util/database").mongoConnect;
 
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
