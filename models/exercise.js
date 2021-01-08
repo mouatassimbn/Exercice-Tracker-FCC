@@ -14,7 +14,9 @@ class Exercise {
     return db
       .collection("exercises")
       .insertOne(this)
-      .then((result) => console.log(result))
+      .then((result) => {
+        return result.ops[0];
+      })
       .catch((err) => console.log(err));
   }
 
