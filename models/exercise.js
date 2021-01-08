@@ -6,7 +6,7 @@ class Exercise {
     this.userId = userId;
     this.description = description;
     this.duration = duration;
-    this.date = Date.parse(date);
+    this.date = new Date(date);
   }
 
   save() {
@@ -57,22 +57,21 @@ class Exercise {
       .catch((err) => console.log(err));
   }
 
-  static find(userId = "", from = "", to = "", limit = "") {
-    const validUserId = userId || "";
-    const validFrom = Date.parse(from) || "";
-    const validTo = Date.parse(to) || "";
-    const validLimit = limit || "";
+  static find(userId, from = "", to = "", limit = "") {
+    const validFrom = new Date(from) || null;
+    const validTo = new Date(to) || null;
+    const validLimit = limit || null;
 
     const db = getDb();
 
     db.collection("exercises").find({
-      userId: validUserId,
+      userId: userId,
       date: { $gt: validFrom, $lt: validTo },
       duration: validLimit,
     })
-    .next()
-    .then((exercise) => {
-      return exercise;
+    .toArray()
+    .then((exercises) => {
+      return exercises;
     })
     .catch((err) => console.log(err));
   }

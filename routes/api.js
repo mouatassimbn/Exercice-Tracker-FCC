@@ -10,4 +10,7 @@ router.post('/new-user', userContorller.store);
 // api/exercise/add => POST
 router.post('/add', exerciseController.store);
 
+// /api/exercise/log?{userId}[&from][&to][&limit] => GET
+router.get('/log', exerciseController.search);
+
 module.exports = router;
