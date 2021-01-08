@@ -33,8 +33,8 @@ class User {
     db.collection("users")
       .find()
       .toArray()
-      .then((products) => {
-        return products;
+      .then((users) => {
+        return users;
       })
       .catch((err) => console.log(err));
   }
