@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 
 //Routes
 const apiRoutes = require("./routes/api");
-app.use("/api", apiRoutes);
+app.use("/api/exercise", apiRoutes);
 
 mongoConnect(() => {
   const listener = app.listen(process.env.PORT || 3000, () => {
