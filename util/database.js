@@ -6,13 +6,12 @@ let _db;
 
 const mongoConnect = (callback) => {
   let connectionString  = process.env.CONNECTIONSTRING || null;
-
   if(!connectionString) {
     throw "[ERROR] : Database connection string is empty...";
   }
   
   mongoClient
-    .connect()
+    .connect(connectionString)
     .then((client) => {
         _db = client.db();
         callback();
