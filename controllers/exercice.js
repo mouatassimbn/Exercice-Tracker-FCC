@@ -21,3 +21,23 @@ exports.store = (req, res, nxt) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.search = (req, res, nxt) => {
+  const userId = req.query.userId;
+
+  if (!userId) {
+    res.json({
+      error: "UserId is required...",
+    });
+  }
+
+  const from = req.query.from;
+  const to = req.query.to;
+  const limit = req.query.limit;
+  
+  Exercise.find(userId, from, to, limit)
+    .then((exercises) => {
+      res.json(exercises);
+    })
+    .catch((err) => console.log(err));
+};
