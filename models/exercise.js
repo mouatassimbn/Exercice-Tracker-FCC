@@ -57,8 +57,9 @@ class Exercise {
       .catch((err) => console.log(err));
   }
 
-  static find(userId, from = "", to = "", limit = "") {
+  static find(userId, from = "", to = "", limit = 0) {
     let filter = { userId: userId };
+    let validLimit = Number.parseInt(limit) || 0;
 
     if (from || to) {
       filter.date = {};
@@ -72,15 +73,12 @@ class Exercise {
       }
     }
 
-    if (limit) {
-      filter.duration = { $lte: limit };
-    }
-
     const db = getDb();
 
     return db
       .collection("exercises")
       .find(filter)
+      .limit(validLimit)
       .toArray()
       .then((exercises) => {
         return exercises;
