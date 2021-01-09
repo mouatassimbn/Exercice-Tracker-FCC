@@ -20,7 +20,7 @@ class User {
   static findById(userId) {
     const db = getDb();
 
-    db.collection("users")
+    return db.collection("users")
       .find({ _id: new mongodb.ObjectId(userId) })
       .next()
       .then((user) => {
@@ -32,7 +32,7 @@ class User {
   static fetchAll() {
     const db = getDb();
 
-    db.collection("users")
+    return db.collection("users")
       .find()
       .toArray()
       .then((users) => {
