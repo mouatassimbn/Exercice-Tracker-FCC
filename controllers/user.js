@@ -14,3 +14,11 @@ exports.store = (req, res, nxt) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.index = (req, res, nxt) => {
+  User.fetchAll()
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => console.log(err));
+};

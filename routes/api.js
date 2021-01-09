@@ -7,6 +7,9 @@ const router = express.Router();
 // api/exercise/new-user => POST
 router.post('/new-user', userContorller.store);
 
+// api/exercise/users => GET
+router.get('/users', userContorller.index);
+
 // api/exercise/add => POST
 router.post('/add', exerciseController.store);
 
