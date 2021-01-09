@@ -4,7 +4,7 @@ const User = require("../models/user");
 exports.store = (req, res, nxt) => {
   const userId = req.body.userId;
   const description = req.body.description;
-  const duration = req.body.duration;
+  const duration = req.body.duration || Date.now();
   const date = req.body.date;
 
   const exercise = new Exercise(userId, description, duration, date);
