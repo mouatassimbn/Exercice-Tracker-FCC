@@ -58,22 +58,34 @@ class Exercise {
   }
 
   static find(userId, from = "", to = "", limit = "") {
-    const validFrom = new Date(from) || null;
-    const validTo = new Date(to) || null;
-    const validLimit = limit || null;
+    let filter = { userId: userId };
+
+    if (from || to) {
+      filter.date = {};
+
+      if (from) {
+        filter.date.$gte = new Date(from);
+      }
+
+      if (to) {
+        filter.date.$lte = new Date(to);
+      }
+    }
+
+    if (limit) {
+      filter.duration = { $lte: limit };
+    }
 
     const db = getDb();
 
-    db.collection("exercises").find({
-      userId: userId,
-      date: { $gt: validFrom, $lt: validTo },
-      duration: validLimit,
-    })
-    .toArray()
-    .then((exercises) => {
-      return exercises;
-    })
-    .catch((err) => console.log(err));
+    return db
+      .collection("exercises")
+      .find(filter)
+      .toArray()
+      .then((exercises) => {
+        return exercises;
+      })
+      .catch((err) => console.log(err));
   }
 }
 
